@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_06_154535) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_171331) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,8 +39,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_154535) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "comment_id"
+    t.string "reactionable_type"
+    t.bigint "reactionable_id"
     t.index ["comment_id"], name: "index_reactions_on_comment_id"
     t.index ["post_id"], name: "index_reactions_on_post_id"
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
     t.index ["user_id"], name: "index_reactions_on_user_id"
   end
 
