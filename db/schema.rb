@@ -10,9 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_231646) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_06_171331) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string "content"
+    t.integer "post_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.text "description"
+    t.datetime "when_went"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "post_id"
+    t.string "reaction_type"
+    t.integer "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "comment_id"
+    t.string "reactionable_type"
+    t.bigint "reactionable_id"
+    t.index ["comment_id"], name: "index_reactions_on_comment_id"
+    t.index ["post_id"], name: "index_reactions_on_post_id"
+    t.index ["reactionable_type", "reactionable_id"], name: "index_reactions_on_reactionable"
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +60,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_231646) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "reactions", "comments"
+  add_foreign_key "reactions", "posts"
+  add_foreign_key "reactions", "users"
 end
