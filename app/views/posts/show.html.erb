@@ -9,13 +9,14 @@
   <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
 
-<% Post::Kinds.each do |kind| %>
-<%= button_to "#{Post::KindsSpanish[kind]}",
-new_user_reaction_path(post_id: @post.id, reaction_type:
-"post", kind: kind), method: :post %>
+<% Post.kinds.each do |kind, _value| %>
+  <%= button_to "#{kind}",
+    new_user_reaction_path(post_id: @post.id, reaction_type: "post", kind: kind),
+    method: :post %>
 <% end %>
 
 <%= render 'comments/form' %>
+<%= render 'comments/post_comments' %>
 
 
 </div>
