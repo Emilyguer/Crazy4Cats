@@ -4,6 +4,10 @@ class Post < ApplicationRecord
     has_many :reactions, dependent: :destroy
     has_many :users, through: :reactions 
 
+    has_one_attached :photo
+
+    paginates_per 10
+    
     enum kind: {
       like: 'like',
       dislike: 'dislike',

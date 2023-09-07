@@ -1,28 +1,35 @@
-<nav>
-  <ul>
-    <li>
-      <%= link_to "Home", root_path %>
-    </li>
-    
-    <% if user_signed_in? %>
-      <li>
-        <strong>
-          <%= current_user.name %>
-        </strong> |
-      </li>
-      <li>
-        <%= link_to "Editar perfil", edit_user_registration_path %>
-      </li>
-      <li>
-        <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "Registrate", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "Inicia sesión", new_user_session_path %>
-      </li>
-    <% end %>
-  </ul>
+<nav class="navbar is-primary">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="<%= root_path %>">
+        Home
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-end">
+        <% if user_signed_in? %>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <%= current_user.name %>
+            </a>
+            <div class="navbar-dropdown is-right">
+              <a class="navbar-item" href="<%= edit_user_registration_path %>">
+                Editar perfil
+              </a>
+              <a class="navbar-item" href="<%= destroy_user_session_path %>" data-method="delete">
+                Cerrar sesión
+              </a>
+            </div>
+          </div>
+        <% else %>
+          <a class="navbar-item" href="<%= new_user_registration_path %>">
+            Regístrate
+          </a>
+          <a class="navbar-item" href="<%= new_user_session_path %>">
+            Inicia sesión
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </nav>
