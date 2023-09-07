@@ -7,9 +7,9 @@
 #   Character.create(name: "Luke", movie: movies.first)
  
     # Crear 100 registros en la tabla Post
-    until Post.count == 100 do
+    until Post.count == 10 do
         Post.create(
-        description: Faker::Lorem.paragraph_by_chars(number: 200, supplemental: false),
+        description: Faker::Lorem.paragraph_by_chars(number: 20, supplemental: false),
         when_went: Faker::Date.between(from: 10.years.ago, to: Date.today)
         )
     end
@@ -31,7 +31,7 @@
     users = User.all
     
     # Crear 1000 registros en la tabla Comment
-    until Comment.count == 1000 do
+    until Comment.count == 10 do
         Comment.create(
         content: Faker::Lorem.paragraph_by_chars(number: 200, supplemental: false),
         post_id: posts.sample.id,

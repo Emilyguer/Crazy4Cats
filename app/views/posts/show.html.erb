@@ -1,22 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-5 p-5">
+  <div class="columns is-centered">
+    <div class="column is-half">
+      <p class="has-text-success"><%= notice %></p>
 
-<%= render @post %>
+      <%= render @post %>
 
-<div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
+      <div class="buttons">
+        <% Post.kinds.each do |kind, _value| %>
+          <%= link_to new_user_reaction_path(post_id: @post.id, reaction_type: "post", kind: kind), method: :post, class: "button is-primary" do %>
+            <span class="icon">
+              <i class="<%= @reaction_icons[kind.to_sym] %>"></i>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
 
-  <%= button_to "Destroy this post", @post, method: :delete %>
-</div>
-
-<% Post.kinds.each do |kind, _value| %>
-  <%= button_to "#{kind}",
-    new_user_reaction_path(post_id: @post.id, reaction_type: "post", kind: kind),
-    method: :post %>
-<% end %>
-
-<%= render 'comments/form' %>
-<%= render 'comments/post_comments' %>
-
-
+      <%= render 'comments/form' %>
+      <%= render 'comments/post_comments' %>
+    </div>
+  </div>
 </div>

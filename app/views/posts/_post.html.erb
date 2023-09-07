@@ -1,12 +1,21 @@
-<div id="<%= dom_id post %>">
-  <p>
-    <strong>Description:</strong>
-    <%= post.description %>
-  </p>
-
-  <p>
-    <strong>Cuando fui:</strong>
-    <%= post.when_went %>
-  </p>
-
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <% if post.photo.attached? %>
+          <%= image_tag post.photo, class: "image is-4by3" %>
+        <% else %>
+          <img src="https://picsum.photos/800/600" alt="">
+        <% end %>
+        <p>
+          <strong> </strong>
+          <%= post.description %>
+        </p>
+        <p>
+          <strong> </strong>
+          <%= post.when_went %>
+        </p>
+      </div>
+    </div>
+  </article>
 </div>

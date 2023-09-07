@@ -1,15 +1,25 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
 
+  REACTION_ICONS = {
+    like: 'fa-thumbs-up',
+    dislike: 'fa-thumbs-down',
+    heart: 'fa-heart',
+    smile: 'fa-smile'
+  }.freeze
+
+
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.order(:description).page(params[:page])
   end
 
   # GET /posts/1 or /posts/1.json
   def show
     @comment = Comment.new
     @comments = @post.comments
+    @reaction_icons = REACTION_ICONS
+
     end
     
     
@@ -68,6 +78,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:description, :when_went)
+      params.require(:post).permit(:description, :when_went, :photo)
     end
 end
